@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2c3e50">
+  <title>Lista della Spesa</title>
+    <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    h2 {
+      margin-top: 30px;
+      color: #34495e;
+    }
+
+    label {
+      display: block;
+      margin: 5px 0;
+      padding-left: 10px;
+    }
+
+    details {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin: 10px 0;
+      padding: 10px;
+    }
+
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    details label {
+      padding-left: 20px;
+    }
+    #selected-list{
+      background-color: #fff;
+      border: 2px solid #2c3e50;
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 40px;
+    }
+    #selected-list h2{
+      margin-top: 0;
+      color: #2c3e50;
+    }
+    ul{
+      padding-left: 20px;
+    }
+    .container {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .lista-prodotti {
+      flex: 2;
+    }
+
+    #selected-list {
+      flex: 1;
+      background-color: #fff;
+      border: 2px solid #2c3e50;
+      border-radius: 6px;
+      padding: 15px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: sticky;
+      top: 40px;
+    }
+    #output li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 4px;
+      border-bottom: 1px solid #ccc;
+  }
+
+    #output li span.nome {
+      flex: 1;
+  }
+
+    #output li .controlli {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: 10px;
+  }
+    #output li .controlli button{
+      padding: 2px 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lista-prodotti">
+  <h1>Lista della Spesa</h1>
+
+  <h2>Pane e prodotti da forno</h2>
+  <details>
+    <summary>Pane</summary>
+    <label><input type="checkbox"> Pane bianco</label><br>
+    <label><input type="checkbox"> Pane integrale</label><br>
+    <label><input type="checkbox"> Pane ai cereali</label><br>
+  </details>
+  <label><input type="checkbox"> Grissini</label><br>
+  <label><input type="checkbox"> Fette biscottate</label><br>
+  <label><input type="checkbox"> Crackers</label><br>
+  <label><input type="checkbox"> Biscotti</label><br>
+  <label><input type="checkbox"> Merendine</label><br>
+
+  <h2>Carne e salumi</h2>
+  <details>
+    <summary>Pollo</summary>
+    <label><input type="checkbox"> Petto di pollo</label><br>
+    <label><input type="checkbox"> Cosce di pollo</label><br>
+    <label><input type="checkbox"> Alette di pollo</label><br>
+  </details>
+  <details>
+    <summary>Manzo</summary>
+    <label><input type="checkbox"> Bistecca di manzo</label><br>
+    <label><input type="checkbox"> Macinato di manzo</label><br>
+  </details>
+  <details>
+    <summary>Maiale</summary>
+    <label><input type="checkbox"> Bistecche di maiale</label><br>
+    <label><input type="checkbox"> Costine di maiale</label><br>
+    <label><input type="checkbox"> Spezzatino di maiale</label><br>
+    <details>
+        <summary>Salsiccia</summary>
+        <label><input type="checkbox"> Salsiccia di maiale</label><br>
+        <label><input type="checkbox"> Salsiccia di fegato</label><br>
+    </details>
+  </details>
+  <details>
+    <summary>Salumi</summary>
+    <label><input type="checkbox"> Prosciutto crudo</label><br>
+    <label><input type="checkbox"> Prosciutto cotto</label><br>
+    <label><input type="checkbox"> Salame</label><br>
+    <label><input type="checkbox"> Mortadella</label><br>
+    <label><input type="checkbox"> Würstel</label><br>
+  </details>
+
+  <h2>Pesce</h2>
+  <label><input type="checkbox"> Tonno in scatola</label><br>
+  <label><input type="checkbox"> Salmone</label><br>
+  <label><input type="checkbox"> Bastoncini di merluzzo</label><br>
+  <label><input type="checkbox"> Gamberi</label><br>
+
+  <h2>Latticini e uova</h2>
+  <label><input type="checkbox"> Latte</label><br>
+  <label><input type="checkbox"> Yogurt</label><br>
+  <label><input type="checkbox"> Formaggio</label><br>
+  <label><input type="checkbox"> Mozzarella</label><br>
+  <label><input type="checkbox"> Burro</label><br>
+  <label><input type="checkbox"> Uova</label><br>
+  <label><input type="checkbox"> Panna</label><br>
+
+  <h2>Frutta e verdura</h2>
+  <label><input type="checkbox"> Mele</label><br>
+  <label><input type="checkbox"> Banane</label><br>
+  <label><input type="checkbox"> Arance</label><br>
+  <label><input type="checkbox"> Limoni</label><br>
+  <label><input type="checkbox"> Insalata</label><br>
+  <label><input type="checkbox"> Pomodori</label><br>
+  <label><input type="checkbox"> Zucchine</label><br>
+  <label><input type="checkbox"> Patate</label><br>
+  <label><input type="checkbox"> Carote</label><br>
+  <label><input type="checkbox"> Cipolle</label><br>
+  <label><input type="checkbox"> Aglio</label><br>
+
+  <h2>Pasta, riso e legumi</h2>
+  <details>
+    <summary>Pasta</summary>
+    <label><input type="checkbox"> Penne rigate</label><br>
+    <label><input type="checkbox"> Penne lisce</label><br>
+    <label><input type="checkbox"> Rigatoni</label><br>
+    <label><input type="checkbox"> Spaghetti</label><br>
+    <label><input type="checkbox"> Bucatini</label><br>
+    <label><input type="checkbox"> Mezze maniche</label><br>
+    <label><input type="checkbox"> Tubetti</label><br>
+    <label><input type="checkbox"> Sagne</label><br>
+  </details>
+  <label><input type="checkbox"> Riso</label><br>
+  <label><input type="checkbox"> Lenticchie</label><br>
+  <label><input type="checkbox"> Ceci</label><br>
+  <label><input type="checkbox"> Fagioli</label><br>
+  <label><input type="checkbox"> Farro</label><br>
+  <label><input type="checkbox"> Cous cous</label><br>
+
+  <h2>Scatolame e conserve</h2>
+  <label><input type="checkbox"> Passata di pomodoro</label><br>
+  <label><input type="checkbox"> Piselli in scatola</label><br>
+  <label><input type="checkbox"> Fagioli in scatola</label><br>
+  <label><input type="checkbox"> Tonno in scatola</label><br>
+  <label><input type="checkbox"> Sottaceti</label><br>
+  <label><input type="checkbox"> Olive</label><br>
+
+  <h2>Spezie, oli e condimenti</h2>
+  <label><input type="checkbox"> Sale</label><br>
+  <label><input type="checkbox"> Pepe</label><br>
+  <label><input type="checkbox"> Paprika</label><br>
+  <label><input type="checkbox"> Salvia</label><br>
+  <label><input type="checkbox"> Insaporitore per patate</label><br>
+  <label><input type="checkbox"> Insaporitore per arrosti</label><br>
+  <label><input type="checkbox"> Insaporitore per pesce</label><br>
+  <label><input type="checkbox"> Olio d'oliva</label><br>
+  <label><input type="checkbox"> Olio di semi</label><br>
+  <label><input type="checkbox"> Aceto</label><br>
+  <label><input type="checkbox"> Maionese</label><br>
+  <label><input type="checkbox"> Ketchup</label><br>
+  <label><input type="checkbox"> Senape</label><br>
+  <label><input type="checkbox"> Salsa BBQ</label><br>
+
+  <h2>Snacks e dolciumi</h2>
+  <label><input type="checkbox"> Patatine</label><br>
+  <label><input type="checkbox"> Popcorn</label><br>
+  <label><input type="checkbox"> Cioccolato</label><br>
+  <label><input type="checkbox"> Caramelle</label><br>
+  <label><input type="checkbox"> Barrette</label><br>
+
+  <h2>Bevande</h2>
+  <label><input type="checkbox"> Acqua</label><br>
+  <label><input type="checkbox"> Bibite</label><br>
+  <label><input type="checkbox"> Succhi di frutta</label><br>
+  <label><input type="checkbox"> Birra</label><br>
+  <label><input type="checkbox"> Vino</label><br>
+  <label><input type="checkbox"> Caffè</label><br>
+  <label><input type="checkbox"> Tè</label><br>
+
+  <h2>Igiene personale</h2>
+  <label><input type="checkbox"> Sapone</label><br>
+  <label><input type="checkbox"> Shampoo</label><br>
+  <label><input type="checkbox"> Bagnoschiuma</label><br>
+  <label><input type="checkbox"> Dentifricio</label><br>
+  <label><input type="checkbox"> Spazzolino</label><br>
+  <label><input type="checkbox"> Deodorante</label><br>
+  <label><input type="checkbox"> Carta igienica</label><br>
+  <label><input type="checkbox"> Assorbenti</label><br>
+
+  <h2>Pulizia della casa</h2>
+  <label><input type="checkbox"> Detersivo piatti</label><br>
+  <label><input type="checkbox"> Detersivo lavatrice</label><br>
+  <label><input type="checkbox"> Candeggina</label><br>
+  <label><input type="checkbox"> Spugne</label><br>
+  <label><input type="checkbox"> Sacchetti pattumiera</label><br>
+  </div>
+
+  
+  <div id="selected-list">
+    <input type="text" id="custom-input" placeholder="Aggiungi prodotto personalizzato">
+    <button onclick="addCustomItem()">Aggiungi</button>
+    <button onclick="cancellaLista()">Cancella tutta la lista</button>
+    <h2>Prodotti selezionati: </h2>
+    <ul id="output"></ul>
+  </div>
+  <script>
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const output = document.getElementById('output');
+
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', updateList);
+    });
+
+    function updateList() {
+  output.innerHTML = '';
+  checkboxes.forEach(cb => {
+    if (cb.checked) {
+      const li = document.createElement('li');
+      li.textContent = '';
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = cb.parentElement.textContent.trim();
+      li.appendChild(nameSpan);
+      li._checkbocRef = cb;
+      span(li);
+      output.appendChild(li);
+    }
+  });
+}
+  function addCustomItem() {
+  const input = document.getElementById('custom-input');
+  const value = input.value.trim();
+  if (value !== '') {
+    const li = document.createElement('li');
+    li.textContent = '';
+    const nameSpan = document.createElement('span');
+    nameSpan.textContent = value;
+    li.appendChild(nameSpan);
+    span(li);
+    output.appendChild(li);
+    input.value = '';
+    }
+  }
+
+  function cancellaLista(){
+    checkboxes.forEach(cb => cb.checked = false);
+    output.innerHTML = "";
+  }
+
+  function span(li){
+    const name = li.querySelector('span');
+    name.className = 'name'
+
+    const countspan = document.createElement('span');
+    countspan.textContent = 1;
+
+    const controls = document.createElement('span');
+    controls.className = 'controlli';
+
+    controls.appendChild(Decremento(countspan));
+    controls.appendChild(countspan);
+    controls.appendChild(Incremento(countspan));
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = '❌';
+    deleteBtn.onclick = () => {
+      if(li._checkbocRef){
+        li._checkbocRef.checked = false;
+      }
+      li.remove();
+    }
+    controls.appendChild(deleteBtn);
+
+    li.appendChild(controls);
+
+  }
+
+  function Incremento(countspan){
+    const plusBtn = document.createElement('button');
+    plusBtn.textContent = '+';
+    plusBtn.onclick = () => {
+      countspan.textContent = Number(countspan.textContent) + 1;
+    }
+    return plusBtn;
+  }
+  function Decremento(countspan){
+    const minusBtn = document.createElement('button');
+    minusBtn.textContent = '-';
+    minusBtn.onclick = () => {
+      let current = Number(countspan.textContent);
+      if (current > 1){
+        countspan.textContent = current - 1;
+      } else{
+        const li = countspan.closest('li');
+        if(li._checkbocRef){
+          li._checkbocRef.checked = false;
+        }
+        li.remove();
+      }
+    }
+    return minusBtn;
+  }
+  </script>
+  <script>
+    if('ServiceWorker' in navigator){
+      window.addEventListener('load', () =>{
+        navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('Service Worker registrato: ', reg))
+        .catch(err => console.error('Errore Service Worker: ', err))
+      });
+    }
+  </script>
+</body>
+</html>
