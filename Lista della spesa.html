@@ -5,6 +5,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="stile.css">
   <meta name="theme-color" content="#2c3e50">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista della Spesa</title>
 </head>
 <body>
@@ -185,15 +186,22 @@
   <label><input type="checkbox"> Sacchetti pattumiera</label>
   </div>
   </div>
-
   
   <div id="selected-list">
-    <input type="text" id="custom-input" placeholder="Prodotto personalizzato">
+    <input type="text" id="custom-input" placeholder="Inserisci prodotto personalizzato">
     <button onclick="addCustomItem()">Aggiungi</button>
     <button id="bottoneCancella" onclick="cancellaLista()">Cancella tutta la lista</button>
+    <div id="modalConferma" class="modal hidden">
+      <div class="modal-content">
+        <p id="modalMessage">Sei sicuro di voler continuare?</p>
+        <button id="btnSi" class="btnSi">👍</button>
+        <button id="btnNo" class="btnNo">👎</button>
+      </div>
+    </div>
     <h2>Prodotti selezionati: </h2>
     <ul id="output"></ul>
   </div>
   <script src="funzioni.js"></script>
+
 </body>
 </html>

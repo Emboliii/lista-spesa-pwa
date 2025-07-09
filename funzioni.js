@@ -38,11 +38,37 @@
     aggiornaStatoBottone();
   }
 
-  function cancellaLista(){
-    const conferma = confirm("Sei sicuro di voler cancellare tutta la lista?");
+  function showModalConferma(messaggio = "Sei sicuro di voler continuare?"){
+    return new Promise((resolve) => {
+      const modal = document.getElementById("modalConferma");
+      const btnSi = document.getElementById("btnSi");
+      const btnNo = document.getElementById("btnNo");
+      const messageElement = document.getElementById("modalMessage");
+
+      messageElement.textContent = messaggio;
+      modal.classList.remove("hidden");
+
+      btnSi.onclick = () => {
+        modal.classList.add("hidden");
+        resolve(true);
+      };
+
+      btnNo.onclick = () => {
+        modal.classList.add("hidden");
+        resolve(false);
+      };
+    });
+  }
+
+  async function cancellaLista(){
+    const conferma = await showModalConferma("Sei sicuro di voler cancellare tutta la lista?");
     if(conferma){
-    checkboxes.forEach(cb => cb.checked = false);
-    output.innerHTML = "";
+      checkboxes.forEach(cb => cb.checked = false);
+      output.innerHTML = "";
+
+      console.log("Lista cancellata");
+    } else{
+      console.log("Cancellazione annullata");
     }
     aggiornaStatoBottone();
   }
@@ -68,8 +94,8 @@
 
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = '❌';
-    deleteBtn.onclick = () => {
-      const conferma = confirm("Sei sicuro di eliminarlo dalla lista?");
+    deleteBtn.onclick =  async() => {
+      const conferma = await showModalConferma("Sei sicuro di voler eliminare questo elemento?");
       if(conferma){
         if(li._checkbocRef){
         li._checkbocRef.checked = false;
@@ -84,7 +110,7 @@
 
   function Incremento(countspan){
     const plusBtn = document.createElement('button');
-    plusBtn.textContent = '+';
+    plusBtn.textContent = '➕';
     plusBtn.onclick = () => {
       countspan.textContent = Number(countspan.textContent) + 1;
     }
@@ -92,13 +118,13 @@
   }
   function Decremento(countspan){
     const minusBtn = document.createElement('button');
-    minusBtn.textContent = '-';
-    minusBtn.onclick = () => {
+    minusBtn.textContent = '➖';
+    minusBtn.onclick = async () => {
       let current = Number(countspan.textContent);
       if (current > 1){
         countspan.textContent = current - 1;
       } else{
-        const conferma = confirm("Sei sicuro di eliminarlo dalla lista?");
+        const conferma = await showModalConferma();
         if(conferma){
             const li = countspan.closest('li');
             if(li._checkbocRef){
