@@ -140,8 +140,8 @@
     #output-custom li .controlli {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-left: 10px;
+      gap: 16px;
+      margin-left: 16px;
   }
 
     #output-checkbox li .controlli span,
