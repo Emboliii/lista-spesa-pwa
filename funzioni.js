@@ -7,7 +7,7 @@
     });
     aggiornaStatoBottone();
 
-    function updateList() {
+  function updateList() {
   outputCheckbox.innerHTML = '';
   checkboxes.forEach(cb => {
     if (cb.checked) {
@@ -33,7 +33,7 @@
     nameSpan.textContent = value;
     li.appendChild(nameSpan);
     span(li);
-    output.appendChild(li);
+    outputCustom.appendChild(li);
     input.value = '';
     }
     aggiornaStatoBottone();
