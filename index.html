@@ -9,6 +9,11 @@
   <title>Lista della Spesa</title>
 </head>
 <body>
+
+  <button id="carrello-toggle">
+    🛒 Lista (<span id="conteggio-carrello">0</span>)
+  </button>
+
     <main class="container">
     <div class="lista-prodotti">
   <h1>Lista della Spesa</h1>
@@ -187,7 +192,7 @@
   </div>
   </div>
   
-  <div id="selected-list">
+  <div id="selected-list" class="hidden">
     <input type="text" id="custom-input" placeholder="Inserisci prodotto personalizzato">
     <button onclick="addCustomItem()">Aggiungi</button>
     <button id="bottoneCancella" onclick="cancellaLista()">Cancella tutta la lista</button>

@@ -78,6 +78,7 @@
   function aggiornaStatoBottone(){
     const bottoneCancella = document.getElementById("bottoneCancella");
     const totalItems = outputCheckbox.children.length + outputCustom.children.length;
+    document.getElementById("conteggio-carrello").textContent = totalItems;
     bottoneCancella.disabled = totalItems=== 0;
   }
 
@@ -147,3 +148,10 @@
         .catch(err => console.error('Errore Service Worker: ', err))
       });
     }
+
+    const carrelloToggle = document.getElementById("carrello-toggle");
+    const selectedList = document.getElementById("selected-list");
+
+    carrelloToggle.addEventListener("click", () => {
+      selectedList.classList.toggle("hidden");
+    })
