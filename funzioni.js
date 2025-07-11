@@ -1,6 +1,6 @@
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const outputCheckbox = document.getElementById('output-checkbox');
-    const outputCustom = getElementById("output-custom");
+    const outputCustom = document.getElementById("output-custom");
 
     checkboxes.forEach(checkbox => {
       checkbox.addEventListener('change', updateList);
@@ -18,7 +18,7 @@
       li.appendChild(nameSpan);
       li._checkbocRef = cb;
       span(li);
-      output.appendChild(li);
+      outputCheckbox.appendChild(li);
     }
   });
   aggiornaStatoBottone();
@@ -77,7 +77,7 @@
   function aggiornaStatoBottone(){
     const bottoneCancella = document.getElementById("bottoneCancella");
     const totalItems = outputCheckbox.children.length + outputCustom.children.length;
-    bottoneCancella.disabled = output.children.length === 0;
+    bottoneCancella.disabled = totalItems=== 0;
   }
 
   function span(li){
