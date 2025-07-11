@@ -65,7 +65,8 @@
     const conferma = await showModalConferma("Sei sicuro di voler cancellare tutta la lista?");
     if(conferma){
       checkboxes.forEach(cb => cb.checked = false);
-      output.innerHTML = "";
+      outputCheckbox.innerHTML = "";
+      outputCustom.innerHTML = "";
 
       console.log("Lista cancellata");
     } else{
