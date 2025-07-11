@@ -1,5 +1,6 @@
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    const output = document.getElementById('output');
+    const outputCheckbox = document.getElementById('output-checkbox');
+    const outputCustom = getElementById("output-custom");
 
     checkboxes.forEach(checkbox => {
       checkbox.addEventListener('change', updateList);
@@ -7,7 +8,7 @@
     aggiornaStatoBottone();
 
     function updateList() {
-  output.innerHTML = '';
+  outputCheckbox.innerHTML = '';
   checkboxes.forEach(cb => {
     if (cb.checked) {
       const li = document.createElement('li');
@@ -75,6 +76,7 @@
 
   function aggiornaStatoBottone(){
     const bottoneCancella = document.getElementById("bottoneCancella");
+    const totalItems = outputCheckbox.children.length + outputCustom.children.length;
     bottoneCancella.disabled = output.children.length === 0;
   }
 
