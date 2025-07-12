@@ -155,3 +155,11 @@
     carrelloToggle.addEventListener("click", () => {
       selectedList.classList.toggle("hidden");
     })
+
+    if('serviceWorker' in navigator){
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log('Service Worker registrato: ', reg.scope))
+        .then(err => console.log('Service Worker errore: ', err))
+      });
+    }
