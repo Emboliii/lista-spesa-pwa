@@ -6,6 +6,7 @@
       checkbox.addEventListener('change', updateList);
     });
     aggiornaStatoBottone();
+    caricaListaDaLocalStorage();
 
   function updateList() {
   outputCheckbox.innerHTML = '';
@@ -22,6 +23,7 @@
     }
   });
   aggiornaStatoBottone();
+  salvaListaSuLocalStorage();
 }
   function addCustomItem() {
   const input = document.getElementById('custom-input');
@@ -37,6 +39,7 @@
     input.value = '';
     }
     aggiornaStatoBottone();
+    salvaListaSuLocalStorage();
   }
 
   function showModalConferma(messaggio = "Sei sicuro di voler continuare?"){
@@ -67,6 +70,7 @@
       checkboxes.forEach(cb => cb.checked = false);
       outputCheckbox.innerHTML = "";
       outputCustom.innerHTML = "";
+      localStorage.removeItem('lista-spesa');
 
       console.log("Lista cancellata");
     } else{
@@ -162,4 +166,73 @@
         .then(reg => console.log('Service Worker registrato: ', reg.scope))
         .then(err => console.log('Service Worker errore: ', err))
       });
+    }
+
+    function salvaListaSuLocalStorage(){
+      const lista = [];
+      outputCheckbox.querySelectorAll('li').forEach(li => {
+        lista.push({
+          nome: li.querySelector('.nome').textContent,
+          quantita: Number(li.querySelector('.controlli span').textContent),
+          personalizzato: false
+        });
+      });
+
+      outputCustom.querySelectorAll('li').forEach(li => {
+        lista.push({
+          nome: li.querySelector('.nome').textContent,
+          quantita: Number(li.querySelector('.controlli span').textContent),
+          personalizzato: true
+        });
+      });
+
+      localStorage.setItem('lista-spesa', JSON.stringify(lista));
+    }
+
+    function caricaListaDaLocalStorage(){
+      const salvata = JSON.parse(localStorage.getItem('lista-spesa') || '[]');
+      salvata.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = '';
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'nome';
+        nameSpan.textContent = item.nome;
+        li.appendChild(nameSpan);
+
+        const countspan = document.createElement('span');
+        countspan.textContent = item.quantita;
+
+        const controls = document.createElement('span');
+        controls.className = 'controlli';
+        controls.appendChild(Decremento(countspan));
+        controls.appendChild(countspan);
+        controls.appendChild(Incremento(countspan));
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '❌';
+        deleteBtn.onclick = async () => {
+          const conferma = await showModalConferma("Sei sicuro di voler eliminare questo elemento?");
+          if (conferma) {
+          li.remove();
+          salvaListaSuLocalStorage();
+          aggiornaStatoBottone();
+        }
+      };
+        controls.appendChild(deleteBtn);
+        li.appendChild(controls);
+
+        if (item.personalizzato) {
+        outputCustom.appendChild(li);
+      } else {
+        checkboxes.forEach(cb => {
+          if (cb.parentElement.textContent.trim() === item.nome) {
+            cb.checked = true;
+            li._checkbocRef = cb;
+          }
+        })
+        outputCheckbox.appendChild(li);
+      }
+      });
+
+      aggiornaStatoBottone();
     }
