@@ -236,3 +236,13 @@
 
       aggiornaStatoBottone();
     }
+
+    document.getElementById("hamburger").addEventListener("click", () => {
+      document.getElementById("side-menu").style.width = "250px";
+    });
+
+    document.getElementById("chiudi").addEventListener("click", () => {
+      document.getElementById("side-menu").style.width = "0";
+    });
+
+    
