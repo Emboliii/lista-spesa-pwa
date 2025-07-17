@@ -245,4 +245,96 @@
       document.getElementById("side-menu").style.width = "0";
     });
 
-    
+    function salvaLista(){
+      const prodottiCheckbox = Array.from(document.querySelectorAll("#output-checkbox li")).map(li => li.textContent.trim());
+      const prodottiCustom = Array.from(document.querySelectorAll("#output-custom li")).map(li => li.textContent.trim());
+      const listaCompleta = [...prodottiCheckbox, ...prodottiCustom];
+
+      if(listaCompleta.length === 0){
+        alert("La lista è vuota");
+        return;
+      }
+
+      const data = new Date().toLocaleDateString("it-IT");
+      const chiave = `spesa-${data}-${Date.now()}`;
+
+      localStorage.setItem(chiave, JSON.stringify(listaCompleta));
+      alert("Lista salvata con successo!");
+
+      aggiornaMenuLaterale();
+    }
+
+    document.getElementById("salvaLista").addEventListener("click", salvaLista);
+
+    function aggiornaMenuLaterale(){
+      const elenco = document.getElementById("storicoListe");
+      elenco.innerHTML = "";
+
+      for(let i = 0; i < localStorage.length; i++){
+        const chiave = localStorage.key(i);
+
+        if (chiave.startsWith("spesa-")){
+          const voce = document.createElement("li");
+          voce.textContent = chiave.replace("spesa-", "").split("-")[0];
+
+          voce.addEventListener("click", () => {
+            const lista = JSON.parse(localStorage.getItem(chiave));
+            caricaListaSalvata(lista);
+          });
+
+          elenco.appendChild(voce);
+        }
+      }
+    }
+
+    function caricaListaSalvata(lista) {
+      outputCheckbox.innerHTML = '';
+      outputCustom.innerHTML = '';
+      checkboxes.forEach(cb => cb.checked = false);
+
+      lista.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = ''; // svuota il testo base
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'nome';
+        nameSpan.textContent = item.nome;
+        li.appendChild(nameSpan);
+
+        const countspan = document.createElement('span');
+        countspan.textContent = item.quantita;
+
+        const controls = document.createElement('span');
+        controls.className = 'controlli';
+        controls.appendChild(Decremento(countspan));
+        controls.appendChild(countspan);
+        controls.appendChild(Incremento(countspan));
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '❌';
+        deleteBtn.onclick = async () => {
+          const conferma = await showModalConferma("Sei sicuro di voler eliminare questo elemento?");
+          if (conferma) {
+          li.remove();
+          aggiornaStatoBottone();
+        }
+      };
+      controls.appendChild(deleteBtn);
+      li.appendChild(controls);
+
+      if (item.personalizzato) {
+        outputCustom.appendChild(li);
+      } else {
+      
+        checkboxes.forEach(cb => {
+          if (cb.parentElement.textContent.trim() === item.nome) {
+            cb.checked = true;
+            li._checkbocRef = cb;
+          }
+        });
+        outputCheckbox.appendChild(li);
+      }
+    });
+
+    aggiornaStatoBottone();
+  }
