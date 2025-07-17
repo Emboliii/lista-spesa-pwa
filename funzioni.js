@@ -17,7 +17,7 @@
       const nameSpan = document.createElement('span');
       nameSpan.textContent = cb.parentElement.textContent.trim();
       li.appendChild(nameSpan);
-      li._checkbocRef = cb;
+      li._checkboxRef = cb;
       span(li);
       outputCheckbox.appendChild(li);
     }
@@ -105,8 +105,8 @@
     deleteBtn.onclick =  async() => {
       const conferma = await showModalConferma("Sei sicuro di voler eliminare questo elemento?");
       if(conferma){
-        if(li._checkbocRef){
-        li._checkbocRef.checked = false;
+        if(li._checkboxRef){
+        li._checkboxRef.checked = false;
       }
       li.remove();
       aggiornaStatoBottone();
@@ -135,8 +135,8 @@
         const conferma = await showModalConferma();
         if(conferma){
             const li = countspan.closest('li');
-            if(li._checkbocRef){
-                li._checkbocRef.checked = false;
+            if(li._checkboxRef){
+                li._checkboxRef.checked = false;
         }
         li.remove();
         aggiornaStatoBottone();
@@ -227,7 +227,7 @@
         checkboxes.forEach(cb => {
           if (cb.parentElement.textContent.trim() === item.nome) {
             cb.checked = true;
-            li._checkbocRef = cb;
+            li._checkboxRef = cb;
           }
         })
         outputCheckbox.appendChild(li);
@@ -329,7 +329,7 @@
         checkboxes.forEach(cb => {
           if (cb.parentElement.textContent.trim() === item.nome) {
             cb.checked = true;
-            li._checkbocRef = cb;
+            li._checkboxRef = cb;
           }
         });
         outputCheckbox.appendChild(li);
