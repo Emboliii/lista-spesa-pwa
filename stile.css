@@ -339,3 +339,22 @@
     #salvaLista:hover{
       background-color: #218838;
     }
+
+    .overlay{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* sfondo semi-trasparente /
+      z-index: 998; / sotto il menu ma sopra il resto */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
