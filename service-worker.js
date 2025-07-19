@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lista-della-spesa-v2';
+const CACHE_NAME = 'lista-della-spesa-v3';
 const URLS_TO_CACHE = [
     '/',
     '/index.html',
