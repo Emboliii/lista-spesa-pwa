@@ -247,14 +247,41 @@
     });
 
     function salvaLista(){
-      const prodottiCheckbox = Array.from(document.querySelectorAll("#output-checkbox li")).map(li => li.textContent.trim());
-      const prodottiCustom = Array.from(document.querySelectorAll("#output-custom li")).map(li => li.textContent.trim());
+      const prodottiCheckbox = Array.from(document.querySelectorAll("#output-checkbox li")).map(li => ({
+        nome: li.querySelector('.nome').textContent,
+        quantita: Number(li.querySelector('.controlli span').textContent),
+        personalizzato: false
+      }));
+
+      const prodottiCustom = Array.from(document.querySelectorAll("#output-custom li")).map(li => ({
+        nome: li.querySelector('.nome').textContent,
+        quantita: Number(li.querySelector('.controlli span').textContent),
+        personalizzato: true
+      }));
+
       const listaCompleta = [...prodottiCheckbox, ...prodottiCustom];
 
       if(listaCompleta.length === 0){
         alert("La lista è vuota");
         return;
       }
+
+      fetch('salva_lista.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(listaCompleta)
+      })
+      .then(response => response.text())
+      .then(data => {
+        alert(data || "Lista salvata con successo!");
+        aggiornaMenuLaterale();
+      })
+      .catch(error => {
+        console.error('Errore salvataggio: ', error);
+        alert("Errore durante il salvataggio.")
+      })
 
       const data = new Date().toLocaleDateString("it-IT");
       const chiave = `spesa-${data}-${Date.now()}`;
