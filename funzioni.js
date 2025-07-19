@@ -303,13 +303,41 @@
 
         if (chiave.startsWith("spesa-")){
           const voce = document.createElement("li");
-          voce.textContent = chiave.replace("spesa-", "").split("-")[0];
-
-          voce.addEventListener("click", () => {
+          
+          const nomeLista = chiave.replace("spesa-", "").split("-")[0];
+          const spanNome = document.createElement("span");
+          spanNome.textContent = nomeLista;
+          spanNome.style.cursor = "pointer";
+          spanNome.style.flex = "1";
+          spanNome.addEventListener("click", () => {
             const lista = JSON.parse(localStorage.getItem(chiave));
             caricaListaSalvata(lista);
           });
 
+          const btnElimina = document.createElement("button");
+          btnElimina.textContent = "🗑️";
+          btnElimina.style.marginLeft = "10px";
+          btnElimina.style.cursor = "pointer";
+          btnElimina.style.background = "none";
+          btnElimina.style.border = "none";
+          btnElimina.style.color = "white";
+          btnElimina.style.fontSize = "1.2em";
+
+          btnElimina.addEventListener("click", async() => {
+            const conferma = await showModalConferma("Vuoi eliminare la lista salvata?");
+            if(conferma){
+              localStorage.removeItem(chiave);
+              aggiornaMenuLaterale();
+            }
+          });
+
+          voce.style.display = "flex";
+          voce.style.alignItems = "center";
+          voce.style.justifyContent = "space-between";
+
+
+          voce.appendChild(spanNome);
+          voce.appendChild(btnElimina);
           elenco.appendChild(voce);
         }
       }
