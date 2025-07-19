@@ -238,11 +238,12 @@
     }
 
     document.getElementById("hamburger").addEventListener("click", () => {
-      document.getElementById("side-menu").style.width = "250px";
+      document.getElementById("side-menu").classList.add("open");
     });
 
-    document.getElementById("chiudi").addEventListener("click", () => {
-      document.getElementById("side-menu").style.width = "0";
+    document.getElementById("chiudi").addEventListener("click", (e) => {
+      e.preventDefault();
+      document.getElementById("side-menu").classList.remove("open");
     });
 
     function salvaLista(){
