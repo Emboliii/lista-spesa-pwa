@@ -381,7 +381,6 @@
       if (item.personalizzato) {
         outputCustom.appendChild(li);
       } else {
-      
         checkboxes.forEach(cb => {
           if (cb.parentElement.textContent.trim() === item.nome) {
             cb.checked = true;
@@ -402,22 +401,19 @@
   function openMenu() {
     sideMenu.classList.add('active');
     overlay.classList.add('active');
-    document.body.style.overflow = 'hidden'; // blocca scroll
+    document.body.style.overflow = 'hidden'; // blocca lo scroll del body
   }
-
   function closeMenu() {
     sideMenu.classList.remove('active');
     overlay.classList.remove('active');
-    document.body.style.overflow = ''; // ripristina scroll
+    document.body.style.overflow = ''; // ripristina lo scroll
   }
 
-  // Apri menu con hamburger
   hamburgerBtn.addEventListener('click', openMenu);
-
-  // Chiudi menu cliccando sull'overlay
   overlay.addEventListener('click', closeMenu);
 
-  // Chiudi con ESC
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeMenu();
   });
+
+  
