@@ -399,12 +399,12 @@
   const overlay = document.getElementById('overlay');
 
   function openMenu() {
-    sideMenu.classList.add('active');
+    sideMenu.classList.add('open');
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden'; // blocca lo scroll del body
   }
   function closeMenu() {
-    sideMenu.classList.remove('active');
+    sideMenu.classList.remove('open');
     overlay.classList.remove('active');
     document.body.style.overflow = ''; // ripristina lo scroll
   }
