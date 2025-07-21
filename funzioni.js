@@ -3,7 +3,7 @@ function creaElemento(tag, props = {}, ...children){
   Object.entries(props).forEach(([k, v]) => {
     if(k === 'class') el.className = v;
     else if (k === 'text') el.textContent = v;
-    else if (k === 'onclick') el.onClick = v;
+    else if (k === 'onclick') el.onclick = v;
     else el.setAttribute(k, v);
   });
   children.forEach(child => {
