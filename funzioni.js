@@ -171,11 +171,6 @@
         overlayLista.classList.add("active");
         document.body.style.overflow = "";
       }
-/* 
-
-      selectedList.classList.remove("hidden");
-      overlayLista.classList.add("active");
-      document.body.style.overflow = ""; */
     });
 
     overlayLista.addEventListener("click", () => {
