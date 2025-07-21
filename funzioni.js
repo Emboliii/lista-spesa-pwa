@@ -194,6 +194,15 @@ function caricaListaDaLocalStorage() {
   aggiornaStatoBottone();
 }
 
+document.getElementById('carrello-toggle').addEventListener('click', () => {
+  const lista = document.getElementById("selected-list");
+  const overlay = document.getElementById("overlay-lista");
+
+  lista.classList.remove('hidden');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+});
+
 function salvaLista() {
   const prodotti = [...outputCheckbox.querySelectorAll('li'), ...outputCustom.querySelectorAll('li')].map(li => ({
     nome: li.querySelector('.nome').textContent,
