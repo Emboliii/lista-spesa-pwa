@@ -121,6 +121,7 @@
     plusBtn.textContent = '➕';
     plusBtn.onclick = () => {
       countspan.textContent = Number(countspan.textContent) + 1;
+      salvaListaSuLocalStorage();
     }
     return plusBtn;
   }
@@ -139,6 +140,7 @@
                 li._checkboxRef.checked = false;
         }
         li.remove();
+        salvaListaSuLocalStorage();
         aggiornaStatoBottone();
         }
       }
@@ -155,18 +157,32 @@
 
     const carrelloToggle = document.getElementById("carrello-toggle");
     const selectedList = document.getElementById("selected-list");
+    const overlayLista = document.getElementById('overlay-lista');
 
     carrelloToggle.addEventListener("click", () => {
-      selectedList.classList.toggle("hidden");
-    })
+      const isVisible = !selectedList.classList.contains("hidden");
 
-    if('serviceWorker' in navigator){
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-        .then(reg => console.log('Service Worker registrato: ', reg.scope))
-        .then(err => console.log('Service Worker errore: ', err))
-      });
-    }
+      if (isVisible){
+        selectedList.classList.add("hidden");
+        overlayLista.classList.remove("active");
+        document.body.style.overflow = "";
+      } else {
+        selectedList.classList.remove("hidden");
+        overlayLista.classList.add("active");
+        document.body.style.overflow = "";
+      }
+/* 
+
+      selectedList.classList.remove("hidden");
+      overlayLista.classList.add("active");
+      document.body.style.overflow = ""; */
+    });
+
+    overlayLista.addEventListener("click", () => {
+        selectedList.classList.add("hidden");
+        overlayLista.classList.remove("active");
+        document.body.style.overflow = "";
+    });
 
     function salvaListaSuLocalStorage(){
       const lista = [];
@@ -237,10 +253,6 @@
       aggiornaStatoBottone();
     }
 
-    document.getElementById("hamburger").addEventListener("click", () => {
-      document.getElementById("side-menu").classList.add("open");
-    });
-
     document.getElementById("chiudi").addEventListener("click", (e) => {
       e.preventDefault();
       document.getElementById("side-menu").classList.remove("open");
@@ -287,7 +299,6 @@
       const chiave = `spesa-${data}-${Date.now()}`;
 
       localStorage.setItem(chiave, JSON.stringify(listaCompleta));
-      alert("Lista salvata con successo!");
 
       aggiornaMenuLaterale();
     }
@@ -396,24 +407,37 @@
 
   const hamburgerBtn = document.getElementById('hamburger');
   const sideMenu = document.getElementById('side-menu');
-  const overlay = document.getElementById('overlay');
+  const overlayMenu = document.getElementById('overlay-menu');
+  
+
+  hamburgerBtn.addEventListener('click', () => {
+    openMenu();
+  });
 
   function openMenu() {
     sideMenu.classList.add('open');
-    overlay.classList.add('active');
+    overlayMenu.classList.add('active');
     document.body.style.overflow = 'hidden'; // blocca lo scroll del body
   }
+
   function closeMenu() {
     sideMenu.classList.remove('open');
-    overlay.classList.remove('active');
+    overlayMenu.classList.remove('active');
     document.body.style.overflow = ''; // ripristina lo scroll
   }
 
-  hamburgerBtn.addEventListener('click', openMenu);
-  overlay.addEventListener('click', closeMenu);
+  overlayMenu.addEventListener('click', closeMenu);
 
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeMenu();
+    if(e.key === 'Escape'){
+      if(sideMenu.classList.contains('open')){
+        closeMenu();
+      }
+      if(!selectedList.classList.contains('hidden')){
+        selectedList.classList.add('hidden');
+        overlayLista.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
   });
-
   

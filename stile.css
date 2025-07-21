@@ -353,7 +353,7 @@
       transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-    .overlay.active {
+    .overlay.active, .overlay.lista-attiva {
       opacity: 1;
       visibility: visible;
     }
