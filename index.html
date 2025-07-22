@@ -202,18 +202,19 @@
   <label><input type="checkbox"> Sacchetti pattumiera</label>
   </div>
   </div>
-  
-  <div id="selected-list" class="hidden">
-    <input type="text" id="custom-input" placeholder="Inserisci prodotto personalizzato">
-    <button onclick="addCustomItem()">Aggiungi</button>
-    <button id="bottoneCancella" onclick="cancellaLista()">Cancella tutta la lista</button>
-    <div id="modalConferma" class="modal hidden">
+
+  <div id="modalConferma" class="modal hidden">
       <div class="modal-content">
         <p id="modalMessage">Sei sicuro di voler continuare?</p>
         <button id="btnSi" class="btnSi">👍</button>
         <button id="btnNo" class="btnNo">👎</button>
       </div>
     </div>
+  
+  <div id="selected-list" class="hidden">
+    <input type="text" id="custom-input" placeholder="Inserisci prodotto personalizzato">
+    <button onclick="addCustomItem()">Aggiungi</button>
+    <button id="bottoneCancella" onclick="cancellaLista()">Cancella tutta la lista</button>
     <h2>Prodotti selezionati: </h2>
     <ul id="output-checkbox"></ul>
     <ul id="output-custom"></ul>
