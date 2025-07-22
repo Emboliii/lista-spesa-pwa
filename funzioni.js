@@ -251,6 +251,8 @@ const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     document.getElementById("chiudi").addEventListener("click", (e) => {
       e.preventDefault();
       document.getElementById("side-menu").classList.remove("open");
+      document.getElementById("overlay-menu").classList.remove("active");
+      document.body.style.overflow = "";
     });
 
     function salvaLista(){
@@ -403,8 +405,13 @@ const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   const hamburgerBtn = document.getElementById('hamburger');
   const sideMenu = document.getElementById('side-menu');
   const overlayMenu = document.getElementById('overlay-menu');
-  
 
+  const chiudiMenu = document.getElementById('chiudi');
+  chiudiMenu.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeMenu();
+  });
+  
   hamburgerBtn.addEventListener('click', () => {
     openMenu();
   });
