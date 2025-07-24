@@ -320,7 +320,7 @@ const checkboxes = document.querySelectorAll('input[type="checkbox"]');
           spanNome.addEventListener("click", () => {
             const lista = JSON.parse(localStorage.getItem(chiave));
             caricaListaSalvata(lista);
-          });
+          });storicoListe
 
           const btnElimina = document.createElement("button");
           btnElimina.textContent = "🗑️";
@@ -350,6 +350,27 @@ const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         }
       }
     }
+
+    function caricaListeSalvate() {
+      const tutteLeChiavi = Object.keys(localStorage);
+      const chiaviSpesa = tutteLeChiavi.filter(k => k.startsWith('spesa-'));
+
+      const storico = document.getElementById('storicoListe');
+      storico.innerHTML = '';
+
+      chiaviSpesa.forEach(chiave => {
+        const voce = document.createElement('li');
+        voce.textContent = chiave;
+
+        voce.addEventListener('click', () => {
+          const dati = JSON.parse(localStorage.getItem(chiave));
+          caricaListeSalvate(dati);
+          closeMenu();
+        });
+
+        storico.appendChild(voce);
+  });
+}
 
     function caricaListaSalvata(lista) {
       outputCheckbox.innerHTML = '';
@@ -442,4 +463,7 @@ const checkboxes = document.querySelectorAll('input[type="checkbox"]');
       }
     }
   });
-  
+
+  document.addEventListener('DOMContentLoaded', () => {
+    caricaListeSalvate();
+  });
