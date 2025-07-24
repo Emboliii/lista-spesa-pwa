@@ -360,6 +360,7 @@ const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
       chiaviSpesa.forEach(chiave => {
         const voce = document.createElement('li');
+        const dataLista = chiave.replace('spesa-', '').split('-')[0];
         voce.textContent = chiave;
 
         voce.addEventListener('click', () => {
@@ -465,5 +466,5 @@ const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   });
 
   document.addEventListener('DOMContentLoaded', () => {
-    caricaListeSalvate();
+    aggiornaMenuLaterale();
   });
